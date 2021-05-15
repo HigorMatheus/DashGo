@@ -1,9 +1,10 @@
 import { Flex } from "@chakra-ui/layout";
+import { Header } from "../components/Header";
 
 export default function Dashboard() {
   return (
     <Flex>
-      <h1>oi</h1>
+      <Header />
     </Flex>
   );
 }
