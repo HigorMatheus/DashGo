@@ -1,13 +1,15 @@
 import Icon from "@chakra-ui/icon";
 import { HStack } from "@chakra-ui/layout";
+import { useBreakpointValue } from "@chakra-ui/media-query";
 import { RiNotificationLine, RiUserLine } from "react-icons/ri";
 
 export function NotificationsNav() {
+
   return (
     <HStack
-      spacing="8"
-      mx="8"
-      pr="8"
+      spacing={["6","8"]}
+      mx={["6","8"]}
+      pr={["6","8"]}
       py="1"
       color="gray.300"
       borderRightWidth={1}
