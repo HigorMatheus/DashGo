@@ -11,7 +11,7 @@ export function Header() {
   const { onOpen } = useSidebarDrawer();
   const isWindowVersion = useBreakpointValue({
     base: false,
-    xl: true,
+    lg: true,
   });
   return (
     <Flex
