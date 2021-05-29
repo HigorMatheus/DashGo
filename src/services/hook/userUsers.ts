@@ -5,10 +5,27 @@ type User = {
   id: string;
   name: string;
   email: string;
-  createdAt: string
+  createdAt: string;
+};
+
+interface UseUsersProps {
+  page: number;
 }
-export async function getUsers():Promise<User[]> {
-  const { data } = await api.get("users");
+
+interface ResponseGetUsersProps {
+  users: User[];
+  totalCount: number;
+}
+
+export async function getUsers({
+  page,
+}: UseUsersProps): Promise<ResponseGetUsersProps> {
+  const { data, headers } = await api.get("users", {
+    params: {
+      page,
+    },
+  });
+  const totalCount = Number(headers["x-total-count"]);
 
   const users = data.users.map((user) => {
     return {
@@ -23,14 +40,11 @@ export async function getUsers():Promise<User[]> {
     };
   });
 
-  return users;
+  return { totalCount, users };
 }
-export function useUsers(){
-  return useQuery(
-    "users",
-    getUsers,
-    {
-      staleTime: 1000 * 5, // 5 segundos
-    }
-  );
+
+export function useUsers(props: UseUsersProps) {
+  return useQuery(["users", props.page], () => getUsers(props), {
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  });
 }
